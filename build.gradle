@@ -3,31 +3,40 @@ plugins {
     id 'org.springframework.boot' version '3.5.13'
     id 'io.spring.dependency-management' version '1.1.7'
 }
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
 
-group = 'com.ticketpong'
-version = '0.0.1-SNAPSHOT'
-description = 'ticketpongBackend'
+    group = 'com.ticketpong'
+    version = '0.0.1'
+    sourceCompatibility = '17'
+    description = 'ticketpongBackend'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+    repositories {
+        mavenCentral()
     }
-}
 
-repositories {
-    mavenCentral()
-}
+    dependencies {
+        // 모든 도메인 모듈이 엔티티를 다루므로 root에서 관리
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompileOnly 'org.projectlombok:lombok'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    testAnnotationProcessor 'org.projectlombok:lombok'
-}
+        // 모든 모듈에서 사용하는 공통 도구
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
 
-tasks.named('test') {
-    useJUnitPlatform()
+        // 테스트 환경 표준화(JUnit 5)
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+
+    test {
+        useJUnitPlatform() // 모든 모듈에서 JUnit5 로 테스트 실행
+    }
+
+    //도메인 모듈은 실행 파일 (jar)이 아닌 라이브러리 형태로 빌드
+    bootJar {enabled = false}
+    jar {enabled = true}
 }
