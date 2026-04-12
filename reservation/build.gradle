@@ -1,0 +1,10 @@
+//reservation 모듈
+dependencies {
+    // 1. 공통 의존성
+    implementation project(':common')
+
+
+}
+
+bootJar {enabled = false}
+jar {enabled = true}
