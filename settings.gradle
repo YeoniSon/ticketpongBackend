@@ -1,1 +1,9 @@
 rootProject.name = 'ticketpongBackend'
+
+include 'common'
+include 'member'
+include 'performance'
+include 'reservation'
+include 'review'
+include 'api'
+
