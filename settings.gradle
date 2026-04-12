@@ -1,3 +1,5 @@
 rootProject.name = 'ticketpongBackend'
 
 include 'common'
+include 'member'
+
