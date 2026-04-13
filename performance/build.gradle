@@ -1,0 +1,12 @@
+// performance 모듈
+dependencies {
+    // 1. 공통 모듈
+    implementation project(':common')
+
+    // Querydsl 관련
+//    implementation 'com.querydsl-jpa:5.0.0:jakarta'
+//    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+}
+
+bootJar {enabled = false}
+jar {enabled = true}
