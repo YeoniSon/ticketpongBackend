@@ -1,0 +1,52 @@
+package com.ticketpong.member.domain.members;
+
+import com.ticketpong.common.entity.BaseTimeEntity;
+import com.ticketpong.member.domain.Authentication;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SuperBuilder
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype") // DB에 dtype 컬럼 생성
+@Table(name = "member")
+public abstract class Member extends BaseTimeEntity {
+    @Id
+    @Column(length = 50, nullable = false, updatable = false, unique = true)
+    @Setter
+    private String id;
+
+    @Column(nullable = false)
+    private LocalDate birth;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, unique = true)
+    private String phone;
+
+    @Builder.Default
+    private Boolean auth = false;
+
+    // Member 삭제시 Authentication 삭제
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Authentication> authentications = new ArrayList<>();
+
+    public void verifyEmail( ) {
+        this.auth = true;
+    }
+}
