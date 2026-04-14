@@ -4,10 +4,7 @@ import com.ticketpong.common.entity.BaseTimeEntity;
 import com.ticketpong.common.enums.TokenType;
 import com.ticketpong.member.domain.members.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 @Table (name = "authentication")
 public class Authentication extends BaseTimeEntity {
     @Id
@@ -32,5 +30,6 @@ public class Authentication extends BaseTimeEntity {
     private String token;
 
     @Column(nullable = false)
+    @Builder.Default
     private LocalDateTime expiredAt = LocalDateTime.now().plusMinutes(5); //유효시간이 5분으로 구현
 }
