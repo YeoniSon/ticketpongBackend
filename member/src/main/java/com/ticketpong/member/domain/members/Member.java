@@ -1,11 +1,14 @@
 package com.ticketpong.member.domain.members;
 
 import com.ticketpong.common.entity.BaseTimeEntity;
+import com.ticketpong.member.domain.Authentication;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -37,6 +40,11 @@ public abstract class Member extends BaseTimeEntity {
 
     @Builder.Default
     private Boolean auth = false;
+
+    // Member 삭제시 Authentication 삭제
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Authentication> authentications = new ArrayList<>();
 
     public void verifyEmail( ) {
         this.auth = true;
