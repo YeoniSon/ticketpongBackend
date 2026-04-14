@@ -1,7 +1,7 @@
 // common/build.gradle
 
 dependencies {
-    // 나중에 common에서만 사용할 라이브러리 적용
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
 bootJar {enabled = false}

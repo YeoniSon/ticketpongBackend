@@ -15,7 +15,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.16'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // [DB] 데이터베이스
+    // runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.h2database:h2'
+    // testRuntimeOnly 'com.h2database:h2'
 }
 
-bootJar {enabled = false}
+bootJar {enabled = true}
 jar {enabled = true}

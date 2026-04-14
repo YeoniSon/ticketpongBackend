@@ -1,4 +1,4 @@
-package com.ticketpong.ticketpongbackend;
+package com.ticketpong;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
